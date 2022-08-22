@@ -7,9 +7,10 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 function initialize()
-	local font = gfx.font.new('font/Mini Sans 2X')
-	gfx.setFont(font)
-	gfx.drawText("test",180,120)
+	local fontNontendoBold = gfx.font.new('font/Nontendo-Bold-2x')
+	gfx.setFont(fontNontendoBold)
+	gfx.drawText("Test",100,100)
+	
 end
 initialize()
 function pd.update()
