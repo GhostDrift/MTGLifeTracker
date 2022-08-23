@@ -14,8 +14,8 @@ local values = {40,0,0,0}
 -- navigation variables
 local selected = 1
 local edit = -1
-local circleChords = {{200,73,55},{100,205,10},{200,205,10},{300,205,10}}
-local fontNontendoBold2X = gfx.font.new('font/Nontendo-Bold-2x')
+local circleChords = {{200,73,55},{101,217,20},{201,217,20},{301,217,20}}
+local fontNontendoBoldOutline2X = gfx.font.new('font/Nontendo-Bold-Outline-2x')
 local fontNontendoBold8X = gfx.font.new('font/Nontendo-Bold-8x')
 local fontNontendoBoldOutline6X = gfx.font.new('font/Nontendo-Bold-outline-6x')
 --line drawing setup
@@ -30,18 +30,17 @@ function updateScreen()
 	cd3 = values[4]
 	gfx.clear()
 	if(edit ~= -1) then
-		print(circleChords[selected][1],circleChords[selected][2],circleChords[selected][3])
 		gfx.fillCircleAtPoint(circleChords[selected][1],circleChords[selected][2],circleChords[selected][3])
 	elseif(selected == 1) then
 		gfx.drawLine(125,145,275,145)
 	elseif (selected == 2) then
-		gfx.drawLine(75,230,125,230)
+		gfx.drawLine(75,231,125,231)
 	elseif (selected == 3) then
-		gfx.drawLine(175,230,225,230)
+		gfx.drawLine(175,231,225,231)
 	elseif (selected == 4) then
-		gfx.drawLine(275,230,325,230)
+		gfx.drawLine(275,231,325,231)
 	end
-	gfx.setFont(fontNontendoBold2X)
+	gfx.setFont(fontNontendoBoldOutline2X)
 	gfx.drawText("Life",10,10)
 	gfx.setFont(fontNontendoBoldOutline6X)
 	local hpText = tostring(hp)
@@ -61,7 +60,7 @@ function updateScreen()
 
 	--commander damage zone
 
-	gfx.setFont(fontNontendoBold2X)
+	gfx.setFont(fontNontendoBoldOutline2X)
 	--gfx.drawText("Commander Damage",90,160)
 	gfx.drawTextAligned("Commander Damage", 200, 160, kTextAlignment.center)
 	gfx.drawRoundRect(10,150,380,170,10)
