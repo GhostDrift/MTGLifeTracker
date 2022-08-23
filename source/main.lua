@@ -7,36 +7,44 @@ import "Corelibs/graphics"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
-local fnt <const> = gfx.font
 local hp = 40
-local cd = 20
+local cd1 = 0
+local cd2 = 0
+local cd3 = 0
 local fontNontendoBold2X = gfx.font.new('font/Nontendo-Bold-2x')
 local fontNontendoBold8X = gfx.font.new('font/Nontendo-Bold-8x')
+local fontNontendoBold6X = gfx.font.new('font/Nontendo-Bold-6x')
+--line drawing setup
+gfx.setLineCapStyle(gfx.kLineCapStyleRound)
+gfx.setLineWidth(5)
+
 function updateScreen()
 	gfx.clear()
 	gfx.setFont(fontNontendoBold2X)
 	gfx.drawText("Life",10,10)
-	gfx.setFont(fontNontendoBold8X)
+	gfx.setFont(fontNontendoBold6X)
 	local hpText = tostring(hp)
-	--local textWidth = fontNontendoBold8X:getTextWidth(cellText)
-	--local cellRadius = textWidth /1.4
-	--gfx.drawCircleAtPoint(195,65,cellRadius)
-	gfx.drawText(hpText,150,25)
+	gfx.drawTextAligned(hpText, 200, 30, kTextAlignment.center)
+	--gfx.drawText(hpText, 160,30)
+	--gfx.drawLine(125,115,275,115)
+
+	--commander damage zone
+
 	gfx.setFont(fontNontendoBold2X)
 	gfx.drawText("Commander Damage",90,140)
-	
-	gfx.drawText(cd, 120,180)
-	gfx.drawText(cd, 180,180)
-	gfx.drawText(cd, 240,180)
+	gfx.drawRoundRect(10,130,380,170,10)
+	gfx.drawText(cd1, 100,190)
+	gfx.drawText(cd2, 190,190)
+	gfx.drawText(cd3, 280,190)
 
 end
 updateScreen()
 function playdate.update()
 	if pd.buttonJustPressed(pd.kButtonUp) then
-		cellNumber += 1
+		hp += 1
 		updateScreen()
 	elseif pd.buttonJustPressed(pd.kButtonDown) then
-		cellNumber -= 1
+		hp -= 1
 		updateScreen()
 	end
 end
