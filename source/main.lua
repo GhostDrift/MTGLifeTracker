@@ -10,7 +10,7 @@ local gfx <const> = pd.graphics
 
 -- value variables
 local values = {40,0,0,0}
-
+local increment = 1
 -- navigation variables
 local selected = 1
 local edit = -1
@@ -55,21 +55,22 @@ function updateScreen()
 		gfx.drawArc(200,73,63,0,360)
 		gfx.drawArc(200,73,66,0,9*(hp-80))
 	end
-	
-	
 
 	--commander damage zone
-
 	gfx.setFont(fontNontendoBoldOutline2X)
 	--gfx.drawText("Commander Damage",90,160)
 	gfx.drawTextAligned("Commander Damage", 200, 160, kTextAlignment.center)
-	gfx.drawRoundRect(10,150,380,170,10)
+	gfx.drawRoundRect(10,150,380,170,10) -- x,y,w,h,raduis
 	gfx.drawTextAligned(cd1, 100, 205, kTextAlignment.center)
 	gfx.drawTextAligned(cd2, 200, 205, kTextAlignment.center)
 	gfx.drawTextAligned(cd3, 300, 205, kTextAlignment.center)
 	--gfx.drawText(cd1, 100,200)
 	--gfx.drawText(cd2, 190,200)
 	--gfx.drawText(cd3, 280,200)
+
+	--increment display
+	--gfx.drawTextAligned("Increment", 350, 40,kTextAlignment.center)
+	--gfx.drawRoundRect(350,55,70,20,10)
 
 end
 function reset()
@@ -89,14 +90,14 @@ initialize()
 function playdate.update()
 	if pd.buttonJustPressed(pd.kButtonUp) then
 		if edit ~= -1 then
-			values[selected] += 1
+			values[selected] += increment
 		elseif selected ~= 1 then
 			selected = 1
 		end
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonDown)) and (selected == 1) then
 		if edit ~= -1 then
-			values[selected] -= 1
+			values[selected] -= increment
 		else
 			selected = 3
 		end
