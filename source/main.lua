@@ -10,7 +10,7 @@ local gfx <const> = pd.graphics
 
 -- value variables
 local values = {40,0,0,0}
-print(values[1])
+
 -- navigation variables
 local selected = 1
 local edit = -1
@@ -96,12 +96,20 @@ function playdate.update()
 			selected = 3
 		end
 		updateScreen()
-	elseif (pd.buttonJustPressed(pd.kButtonLeft)) and ((selected == 3) or (selected  == 4)) then
+	elseif (pd.buttonJustPressed(pd.kButtonLeft)) then
+		if selected == 1 then
+			selected = 2
+		elseif (selected == 3) or (selected == 4) then 
 		selected -= 1
+		end
 		edit = -1
 		updateScreen()
-	elseif (pd.buttonJustPressed(pd.kButtonRight)) and ((selected == 3 ) or (selected == 2)) then
-		selected += 1
+	elseif (pd.buttonJustPressed(pd.kButtonRight)) then
+		if selected == 1 then
+			selected = 4
+		elseif (selected == 3) or (selected == 2) then
+			selected += 1
+		end
 		edit = -1
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonA)) then
