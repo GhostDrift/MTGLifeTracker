@@ -25,9 +25,9 @@ function updateScreen()
 	gfx.setFont(fontNontendoBold6X)
 	local hpText = tostring(hp)
 	gfx.drawTextAligned(hpText, 200, 40, kTextAlignment.center)
-	gfx.drawArc(200,73,60,0,360)
+	gfx.drawArc(200,73,60,0,9*hp)
 	--gfx.drawText(hpText, 160,30)
-	--gfx.drawLine(125,115,275,115)
+	gfx.drawLine(125,140,275,140)
 
 	--commander damage zone
 
