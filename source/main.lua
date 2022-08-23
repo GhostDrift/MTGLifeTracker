@@ -68,7 +68,19 @@ function updateScreen()
 	--gfx.drawText(cd3, 280,200)
 
 end
-updateScreen()
+function reset()
+	values = {40,0,0,0}
+	edit = -1
+	updateScreen()
+end
+function initialize()
+	local menu = pd.getSystemMenu()
+	local menuItem, error = menu:addMenuItem("Reset Values", function()
+		reset()
+	end)
+	updateScreen()
+end
+initialize()
 function playdate.update()
 	if pd.buttonJustPressed(pd.kButtonUp) then
 		if edit ~= -1 then
