@@ -24,18 +24,20 @@ function updateScreen()
 	gfx.drawText("Life",10,10)
 	gfx.setFont(fontNontendoBold6X)
 	local hpText = tostring(hp)
-	gfx.drawTextAligned(hpText, 200, 30, kTextAlignment.center)
+	gfx.drawTextAligned(hpText, 200, 40, kTextAlignment.center)
+	gfx.drawArc(200,73,60,0,360)
 	--gfx.drawText(hpText, 160,30)
 	--gfx.drawLine(125,115,275,115)
 
 	--commander damage zone
 
 	gfx.setFont(fontNontendoBold2X)
-	gfx.drawText("Commander Damage",90,140)
-	gfx.drawRoundRect(10,130,380,170,10)
-	gfx.drawText(cd1, 100,190)
-	gfx.drawText(cd2, 190,190)
-	gfx.drawText(cd3, 280,190)
+	--gfx.drawText("Commander Damage",90,160)
+	gfx.drawTextAligned("Commander Damage", 200, 160, kTextAlignment.center)
+	gfx.drawRoundRect(10,150,380,170,10)
+	gfx.drawText(cd1, 100,200)
+	gfx.drawText(cd2, 190,200)
+	gfx.drawText(cd3, 280,200)
 
 end
 updateScreen()
