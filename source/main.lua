@@ -128,9 +128,12 @@ end
 
 initialize()
 function playdate.update()
-	if not docked and (edit) then
-		changeValue(pd.getCrankTicks(20))
-		updateScreen()
+	if not docked then
+		local ticks = pd.getCrankTicks(20)
+		if edit then
+			changeValue(ticks)
+			updateScreen()
+		end
 	end
 	if pd.buttonJustPressed(pd.kButtonUp) then
 		if docked then
