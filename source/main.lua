@@ -20,7 +20,23 @@ local docked = nil
 gfx.setLineCapStyle(gfx.kLineCapStyleRound)
 gfx.setLineWidth(5)
 
-
+--function to draw the hp circles
+function drawHPCircle(hp)
+	local numberOfCircles = math.floor((hp/40)) - 1
+	local radius = 60
+	local x = 200
+	local y = 73
+	if hp > 40 then
+		if(hp % 40) == 0 then
+			numberOfCircles -= 1
+		end
+		for i = 0,numberOfCircles,1 do
+			gfx.drawCircleAtPoint(x,y,radius)
+			radius += 3
+		end
+	end
+	gfx.drawArc(x,y,radius,0,9*hp)
+end
 function updateScreen()
 	hp = values[1]
 	cd1 = values[2]
@@ -43,16 +59,21 @@ function updateScreen()
 	gfx.setFont(fontNontendoBoldOutline6X)
 	local hpText = tostring(hp)
 	gfx.drawTextAligned(hpText, 200, 40, kTextAlignment.center)
-	if(hp <= 40) then
-		gfx.drawArc(200,73,60,0,9*hp)
-	elseif((hp >40) and (hp <= 80))then
-		gfx.drawArc(200,73,60,0,360)
-		gfx.drawArc(200,73,63,0,9*(hp-40))
-	elseif((hp >80) and (hp <= 120))then
-		gfx.drawArc(200,73,60,0,360)
-		gfx.drawArc(200,73,63,0,360)
-		gfx.drawArc(200,73,66,0,9*(hp-80))
+
+	--draw the circles that represent the hp value
+	if hp > 0 then
+		drawHPCircle(hp)
 	end
+	--if(hp <= 40) then
+		--gfx.drawArc(200,73,60,0,9*hp)
+	--elseif((hp >40) and (hp <= 80))then
+		--gfx.drawArc(200,73,60,0,360)
+		--gfx.drawArc(200,73,63,0,9 * hp)
+	--elseif((hp >80) and (hp <= 120))then
+		--gfx.drawArc(200,73,60,0,360)
+		--gfx.drawArc(200,73,63,0,360)
+		--gfx.drawArc(200,73,66,0,9*hp)
+	--end
 
 	--commander damage zone
 	gfx.setFont(fontNontendoBoldOutline2X)
