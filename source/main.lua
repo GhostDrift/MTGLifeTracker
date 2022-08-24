@@ -43,6 +43,22 @@ function updateScreen()
 	cd2 = values[3]
 	cd3 = values[4]
 	gfx.clear()
+	--draw the circles that represent the hp value
+	if hp > 0 then
+		drawHPCircle(hp)
+	end
+	--draw the hp area
+	gfx.setFont(fontNontendoBoldOutline2X)
+	gfx.drawText("Life",10,10)
+
+	--commander damage zone
+	gfx.setColor(gfx.kColorWhite)
+	gfx.fillRoundRect(10,150,380,170,10)
+	gfx.setColor(gfx.kColorBlack)
+	gfx.drawRoundRect(10,150,380,170,10) -- x,y,w,h,raduis
+	gfx.drawTextAligned("Commander Damage", 200, 160, kTextAlignment.center)
+
+	-- draw the selected ui elements
 	if(edit) then
 		gfx.fillCircleAtPoint(circleChords[selected][1],circleChords[selected][2],circleChords[selected][3])
 	elseif(selected == 1) then
@@ -54,42 +70,14 @@ function updateScreen()
 	elseif (selected == 4) then
 		gfx.drawLine(275,231,325,231)
 	end
-	gfx.setFont(fontNontendoBoldOutline2X)
-	gfx.drawText("Life",10,10)
-	gfx.setFont(fontNontendoBoldOutline6X)
-	local hpText = tostring(hp)
-	gfx.drawTextAligned(hpText, 200, 40, kTextAlignment.center)
 
-	--draw the circles that represent the hp value
-	if hp > 0 then
-		drawHPCircle(hp)
-	end
-	--if(hp <= 40) then
-		--gfx.drawArc(200,73,60,0,9*hp)
-	--elseif((hp >40) and (hp <= 80))then
-		--gfx.drawArc(200,73,60,0,360)
-		--gfx.drawArc(200,73,63,0,9 * hp)
-	--elseif((hp >80) and (hp <= 120))then
-		--gfx.drawArc(200,73,60,0,360)
-		--gfx.drawArc(200,73,63,0,360)
-		--gfx.drawArc(200,73,66,0,9*hp)
-	--end
-
-	--commander damage zone
-	gfx.setFont(fontNontendoBoldOutline2X)
-	--gfx.drawText("Commander Damage",90,160)
-	gfx.drawTextAligned("Commander Damage", 200, 160, kTextAlignment.center)
-	gfx.drawRoundRect(10,150,380,170,10) -- x,y,w,h,raduis
+	-- draw values
 	gfx.drawTextAligned(cd1, 100, 205, kTextAlignment.center)
 	gfx.drawTextAligned(cd2, 200, 205, kTextAlignment.center)
 	gfx.drawTextAligned(cd3, 300, 205, kTextAlignment.center)
-	--gfx.drawText(cd1, 100,200)
-	--gfx.drawText(cd2, 190,200)
-	--gfx.drawText(cd3, 280,200)
-
-	--increment display
-	--gfx.drawTextAligned("Increment", 350, 40,kTextAlignment.center)
-	--gfx.drawRoundRect(350,55,70,20,10)
+	gfx.setFont(fontNontendoBoldOutline6X)
+	local hpText = tostring(hp)
+	gfx.drawTextAligned(hpText, 200, 40, kTextAlignment.center)
 
 end
 function reset()
