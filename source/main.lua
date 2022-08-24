@@ -8,6 +8,9 @@ import "Corelibs/graphics"
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
+--sounds
+local sounds = {}
+
 -- value variables
 local values = {40,0,0,0}
 -- navigation variables
@@ -19,7 +22,14 @@ local fontNontendoBoldOutline6X = gfx.font.new('font/Nontendo-Bold-outline-6x')
 local docked = nil
 gfx.setLineCapStyle(gfx.kLineCapStyleRound)
 gfx.setLineWidth(5)
-
+-- function to initialize sounds
+local function initializeSounds()
+	sounds[1] = playdate.sound.fileplayer.new("sounds/CongaHi")
+	sounds[2] = playdate.sound.fileplayer.new("sounds/Rimshot")
+	sounds[3] = playdate.sound.fileplayer.new("sounds/CongaLow")
+	sounds[4] = playdate.sound.fileplayer.new("sounds/CongaMid")
+	sounds[5] = playdate.sound.fileplayer.new("sounds/Maraca")
+end
 --function to draw the hp circles
 function drawHPCircle(hp)
 	local numberOfCircles = math.floor((hp/40)) - 1
@@ -85,6 +95,7 @@ function reset()
 	updateScreen()
 end
 function initialize()
+	initializeSounds()
 	local menu = pd.getSystemMenu()
 	local menuItem, error = menu:addMenuItem("Reset Values", function()
 		reset()
@@ -106,8 +117,17 @@ function pd.crankUndocked()
 	docked = false
 	updateScreen()
 end
+function pd.cranked()
+	if edit then
+		changeValue(pd.getCrankTicks(20))
+		updateScreen()
+	end
+end	
 function changeValue(increment)
+	if increment ~= 0 then
 	values[selected] += increment
+	sounds[2]:play()
+	end
 end	
 function moveUp()
 	if selected ~= 1 then
@@ -138,10 +158,6 @@ initialize()
 function playdate.update()
 	if not docked then
 		local ticks = pd.getCrankTicks(20)
-		if edit then
-			changeValue(ticks)
-			updateScreen()
-		end
 	end
 	if pd.buttonJustPressed(pd.kButtonUp) then
 		if docked then
