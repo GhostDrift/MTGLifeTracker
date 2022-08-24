@@ -73,7 +73,6 @@ function updateScreen()
 end
 function reset()
 	values = {40,0,0,0}
-	edit = false
 	updateScreen()
 end
 function initialize()
