@@ -147,25 +147,31 @@ end
 function moveUp()
 	if selected ~= 1 then
 		selected = 1
+		sounds[5]:play()
 	end
 end
 function moveDown()
 	if selected == 1 then 
 		selected = 3
+		sounds[5]:play()
 	end
 end
 function moveLeft()
 	if selected == 1 then
 		selected = 2
+		sounds[5]:play()
 	elseif (selected == 3) or (selected == 4) then 
-	selected -= 1
+		selected -= 1
+		sounds[5]:play()
 	end
 end
 function moveRight()
 	if selected == 1 then
 		selected = 4
+		sounds[5]:play()
 	elseif (selected == 3) or (selected == 2) then
 		selected += 1
+		sounds[5]:play()
 	end
 end
 
