@@ -85,8 +85,8 @@ function initialize()
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	updateScreen()
 end
+--UI functions
 function pd.crankDocked()
-	edit = -1
 	docked = true
 	updateScreen()
 end
@@ -99,16 +99,28 @@ function changeValue(increment)
 	values[selected] += increment
 end	
 function moveUp()
-	selected = 1
-end
-function moveLeft()
-
+	if selected ~= 1 then
+		selected = 1
+	end
 end
 function moveDown()
-
+	if selected == 1 then 
+		selected = 3
+	end
+end
+function moveLeft()
+	if selected == 1 then
+		selected = 2
+	elseif (selected == 3) or (selected == 4) then 
+	selected -= 1
+	end
 end
 function moveRight()
-
+	if selected == 1 then
+		selected = 4
+	elseif (selected == 3) or (selected == 2) then
+		selected += 1
+	end
 end
 
 initialize()
@@ -117,35 +129,35 @@ function playdate.update()
 		if docked then
 			if edit ~= -1 then
 				changeValue(1)
-			elseif selected ~= 1 then
-				selected = 1
+			else
+				moveUp()
 			end
 		else
-			
+			moveUp()
 		end
 		updateScreen()
-	elseif (pd.buttonJustPressed(pd.kButtonDown)) and (selected == 1) then
-		if edit ~= -1 then
-			changeValue(-1)
+	elseif (pd.buttonJustPressed(pd.kButtonDown))then
+		if docked then
+			if edit ~= -1 then
+				changeValue(-1)
+			else
+				moveDown()
+			end
 		else
-			selected = 3
+			moveDown()
 		end
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonLeft)) then
-		if selected == 1 then
-			selected = 2
-		elseif (selected == 3) or (selected == 4) then 
-		selected -= 1
+		if docked then
+			edit = -1
 		end
-		edit = -1
+		moveLeft()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonRight)) then
-		if selected == 1 then
-			selected = 4
-		elseif (selected == 3) or (selected == 2) then
-			selected += 1
+		if docked then
+			edit = -1
 		end
-		edit = -1
+		moveRight()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonA)) then
 		edit = selected
