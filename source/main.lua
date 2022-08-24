@@ -86,6 +86,14 @@ function initialize()
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	updateScreen()
 end
+function pd.crankDocked()
+	edit = -1
+	updateScreen()
+end
+function pd.crankUndocked()
+	edit = selected
+	updateScreen()
+end
 initialize()
 function playdate.update()
 	if pd.buttonJustPressed(pd.kButtonUp) then
