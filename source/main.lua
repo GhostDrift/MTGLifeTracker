@@ -12,7 +12,7 @@ local gfx <const> = pd.graphics
 local values = {40,0,0,0}
 -- navigation variables
 local selected = 1
-local edit = -1
+local edit = false
 local circleChords = {{200,73,55},{101,217,20},{201,217,20},{301,217,20}}
 local fontNontendoBoldOutline2X = gfx.font.new('font/Nontendo-Bold-Outline-2x')
 local fontNontendoBoldOutline6X = gfx.font.new('font/Nontendo-Bold-outline-6x')
@@ -27,7 +27,7 @@ function updateScreen()
 	cd2 = values[3]
 	cd3 = values[4]
 	gfx.clear()
-	if(edit ~= -1) then
+	if(edit) then
 		gfx.fillCircleAtPoint(circleChords[selected][1],circleChords[selected][2],circleChords[selected][3])
 	elseif(selected == 1) then
 		gfx.drawLine(125,145,275,145)
@@ -73,7 +73,7 @@ function updateScreen()
 end
 function reset()
 	values = {40,0,0,0}
-	edit = -1
+	edit = false
 	updateScreen()
 end
 function initialize()
@@ -82,6 +82,9 @@ function initialize()
 		reset()
 	end)
 	docked = pd.isCrankDocked()
+	if not docked then
+		edit = true
+	end
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	updateScreen()
 end
@@ -91,7 +94,7 @@ function pd.crankDocked()
 	updateScreen()
 end
 function pd.crankUndocked()
-	edit = selected
+	edit = true
 	docked = false
 	updateScreen()
 end
@@ -125,9 +128,13 @@ end
 
 initialize()
 function playdate.update()
+	if not docked and (edit) then
+		changeValue(pd.getCrankTicks(20))
+		updateScreen()
+	end
 	if pd.buttonJustPressed(pd.kButtonUp) then
 		if docked then
-			if edit ~= -1 then
+			if edit then
 				changeValue(1)
 			else
 				moveUp()
@@ -138,7 +145,7 @@ function playdate.update()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonDown))then
 		if docked then
-			if edit ~= -1 then
+			if edit then
 				changeValue(-1)
 			else
 				moveDown()
@@ -149,21 +156,21 @@ function playdate.update()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonLeft)) then
 		if docked then
-			edit = -1
+			edit = false
 		end
 		moveLeft()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonRight)) then
 		if docked then
-			edit = -1
+			edit = false
 		end
 		moveRight()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonA)) then
-		edit = selected
+		edit = true
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonB)) then
-		edit = -1
+		edit = false
 		updateScreen()
 	end
 end
