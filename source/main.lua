@@ -10,15 +10,13 @@ local gfx <const> = pd.graphics
 
 -- value variables
 local values = {40,0,0,0}
-local increment = 1
 -- navigation variables
 local selected = 1
 local edit = -1
 local circleChords = {{200,73,55},{101,217,20},{201,217,20},{301,217,20}}
 local fontNontendoBoldOutline2X = gfx.font.new('font/Nontendo-Bold-Outline-2x')
-local fontNontendoBold8X = gfx.font.new('font/Nontendo-Bold-8x')
 local fontNontendoBoldOutline6X = gfx.font.new('font/Nontendo-Bold-outline-6x')
---line drawing setup
+local docked = nil
 gfx.setLineCapStyle(gfx.kLineCapStyleRound)
 gfx.setLineWidth(5)
 
@@ -83,29 +81,52 @@ function initialize()
 	local menuItem, error = menu:addMenuItem("Reset Values", function()
 		reset()
 	end)
+	docked = pd.isCrankDocked()
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	updateScreen()
 end
 function pd.crankDocked()
 	edit = -1
+	docked = true
 	updateScreen()
 end
 function pd.crankUndocked()
 	edit = selected
+	docked = false
 	updateScreen()
 end
+function changeValue(increment)
+	values[selected] += increment
+end	
+function moveUp()
+	selected = 1
+end
+function moveLeft()
+
+end
+function moveDown()
+
+end
+function moveRight()
+
+end
+
 initialize()
 function playdate.update()
 	if pd.buttonJustPressed(pd.kButtonUp) then
-		if edit ~= -1 then
-			values[selected] += increment
-		elseif selected ~= 1 then
-			selected = 1
+		if docked then
+			if edit ~= -1 then
+				changeValue(1)
+			elseif selected ~= 1 then
+				selected = 1
+			end
+		else
+			
 		end
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonDown)) and (selected == 1) then
 		if edit ~= -1 then
-			values[selected] -= increment
+			changeValue(-1)
 		else
 			selected = 3
 		end
