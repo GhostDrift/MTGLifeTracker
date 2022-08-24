@@ -4,9 +4,11 @@ import "Corelibs/object"
 import "Corelibs/crank"
 import "Corelibs/ui"
 import "Corelibs/graphics"
+import "Note"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
+local snd = pd.sound
 
 --sounds
 local sounds = {}
@@ -29,6 +31,7 @@ local function initializeSounds()
 	sounds[3] = playdate.sound.fileplayer.new("sounds/CongaLow")
 	sounds[4] = playdate.sound.fileplayer.new("sounds/CongaMid")
 	sounds[5] = playdate.sound.fileplayer.new("sounds/Maraca")
+	sounds[6] = Note(0,0.2,0.2,0.43,1000,0.1,0.5,snd.kWaveNoise)
 end
 --function to draw the hp circles
 function drawHPCircle(hp)
@@ -93,6 +96,7 @@ end
 function reset()
 	values = {40,0,0,0}
 	updateScreen()
+	sounds[6]:play()
 end
 function initialize()
 	initializeSounds()
