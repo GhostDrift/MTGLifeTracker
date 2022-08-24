@@ -33,6 +33,17 @@ local function initializeSounds()
 	sounds[5] = playdate.sound.fileplayer.new("sounds/Maraca")
 	sounds[6] = Note(0,0.2,0.2,0.43,1000,0.1,0.5,snd.kWaveNoise)
 end
+--function to update the edit value
+function editing(value)
+	if edit ~= value then
+		edit = value
+		if edit == false then
+			sounds[4]:play()
+		else
+			sounds[1]:play()
+		end
+	end
+end
 --function to draw the hp circles
 function drawHPCircle(hp)
 	local numberOfCircles = math.floor((hp/40)) - 1
@@ -106,7 +117,7 @@ function initialize()
 	end)
 	docked = pd.isCrankDocked()
 	if not docked then
-		edit = true
+		editing(true)
 	end
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	updateScreen()
@@ -117,7 +128,7 @@ function pd.crankDocked()
 	updateScreen()
 end
 function pd.crankUndocked()
-	edit = true
+	editing(true)
 	docked = false
 	updateScreen()
 end
@@ -187,21 +198,21 @@ function playdate.update()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonLeft)) then
 		if docked then
-			edit = false
+			editing(false)
 		end
 		moveLeft()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonRight)) then
 		if docked then
-			edit = false
+			editing(false)
 		end
 		moveRight()
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonA)) then
-		edit = true
+		editing(true)
 		updateScreen()
 	elseif (pd.buttonJustPressed(pd.kButtonB)) then
-		edit = false
+		editing(false)
 		updateScreen()
 	end
 end
