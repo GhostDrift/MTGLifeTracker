@@ -122,7 +122,7 @@ function initialize()
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	updateScreen()
 end
---UI functions
+--Input functions
 function pd.crankDocked()
 	docked = true
 	updateScreen()
@@ -140,8 +140,16 @@ function pd.cranked()
 end	
 function changeValue(increment)
 	if increment ~= 0 then
-	values[selected] += increment
-	sounds[2]:play()
+		if selected == 1 then
+			values[selected] += increment
+			sounds[2]:play()
+		else
+			local newValue = values[selected] + increment
+			if newValue >=0 then
+				values[selected] += increment
+				sounds[2]:play()
+			end
+		end	
 	end
 end	
 function moveUp()
