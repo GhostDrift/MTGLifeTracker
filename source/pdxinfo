@@ -4,3 +4,4 @@ description=This is a life tracker for a Magic the gathering game of Commander
 bundleID=com.organization.package
 version=0.0.1
 buildNumber=1
+imagePath=images
