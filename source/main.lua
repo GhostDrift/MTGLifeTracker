@@ -10,6 +10,8 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local snd = pd.sound
 
+pd.setAutoLockDisabled(true)
+
 --sounds
 local sounds = {}
 
